@@ -154,8 +154,8 @@ created with <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetL
    <p>Buyers and sellers trade in sessions. In each session, each buyer can buy at most one product, and each seller can sell at most one product. In each session <em>n</em>, the market is centrally cleared at the crossing point of supply and demand. Specifically, the number of traded units <em>y</em> in session <em>n</em> is the maximum value <em>i</em> such that <i>R<sub>i,n</sub> 
   >= msp<sub>i</sub></i> and the market price <i>p<sub>n</sub></i> is taken to be </p>
 
-   <p align="center"><i>p<sub>n</sub> = ½ [Min (R<sub>y,n</sub>, msp<sub>y+1</sub>) 
-      + Max (R<sub>y+1,n</sub>, msp<sub>y</sub>)]</i></p>
+   <p align="center"><i>p<sub>n</sub> = [</i>Min<i> (R<sub>y,n</sub>, msp<sub>y+1</sub>) 
+      + </i>Max<i> (R<sub>y+1,n</sub>, msp<sub>y</sub>)] </i>/ 2</p>
 
    <p>This price-setting formula takes into account the satisfied supply and demand ( <i>msp<sub>y</sub> &le; p<sub>n</sub> &le; R<sub>y,n</sub></i> ) and the pressure of the extramarginal supply and demand ( <i>msp<sub>y+1</sub> >= p<sub>n</sub> 
   >= R<sub>y+1,n</sub></i> ).</p>
@@ -174,17 +174,17 @@ created with <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetL
    <ul>
       <li>If both buyer <em>i</em> and someone in her neighbourhood has purchased a product:
          <p align="center"><i>q<sup>exp</sup><sub>i,n+1</sub> = q<sup>exp</sup><sub>i,n</sub> 
-      + individual-weight· (q<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>) + social-weight 
-      · (meanq<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>)</i> </p>
+      + individual-weight &middot; (q<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>) + social-weight 
+      &middot; (meanq<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>)</i> </p>
          where <em>q<sub>i,n</sub></em> is the quality of the product received by buyer <em>i</em>, and
          <i>meanq<sub>i,n</sub> </i> is the average quality of the products received by buyers in <em>i</em>'s social neighbourhood. </li>
       <li>If buyer <em>i</em> has purchased a product but no one in her neighbourhood has:
          <p align="center"><i>q<sup>exp</sup><sub>i,n+1</sub> = q<sup>exp</sup><sub>i,n</sub> 
-      + individual-weight · (q<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>) </i></p>
+      + individual-weight &middot; (q<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>) </i></p>
       </li>
       <li>If buyer <em>i</em> has not purchased a product but someone in her neighbourhood has:
          <p align="center"><i>q<sup>exp</sup><sub>i,n+1</sub> = q<sup>exp</sup><sub>i,n</sub> 
-      + social-weight · (meanq<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>)</i>
+      + social-weight &middot; (meanq<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>)</i>
          </p>
       </li>
    </ul>
@@ -283,7 +283,7 @@ created with <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetL
    </p>
    <p>Izquierdo SS, Izquierdo LR, Galan JM and Hernandez C (2005). Market Failure caused by Quality Uncertainty. Artificial Economics - <em>Lecture Notes in Economics 
   and Mathematical Systems</em> 564. Springer-Verlag, Berlin, 2005.</p>
-   <p>Macho-Stadler I and Pérez-Castrillo JD (2001). An Introduction to the Economics of Information. Incentives and Contracts. Oxford University Press (Second edition)</p>
+   <p>Macho-Stadler I and P&eacute;rez-Castrillo JD (2001). An Introduction to the Economics of Information. Incentives and Contracts. Oxford University Press (Second edition)</p>
    <p>Newman
       <a name="Newman"></a> M.E.J. (2003). <a href="http://aps.arxiv.org/abs/cond-mat/0303516/" target="_blank">The 
   structure and function of complex networks.</a> SIAM Review 45, 167-256 .</p>
