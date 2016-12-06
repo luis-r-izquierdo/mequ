@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<HEAD>
+   <TITLE>MEQU (Market Effects of Quality Uncertainty)</TITLE>
+   <META http-equiv=Content-Type content="text/html; charset=windows-1252">
+   <META name=keywords content="Quality Uncertainty, NetLogo, quality, variability, asymmetric information, agent-based modelling">
+   <META name=Description content="MEQU: An agent-based model to analyse the market effects of quality uncertainty">
+   <META name=Authors content="Segismundo S. Izquierdo and Luis R. Izquierdo">
+
+   <STYLE type="text/css">
+      H1 {
+         BACKGROUND-COLOR: #66ccff;
+         font-family: monospace;
+         padding: 5px;
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H2 {
+         BACKGROUND-COLOR: #dddddd;
+         font-family: monospace;
+         padding: 5px;
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      p {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      ol {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      ul {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.parameter {
+         font-family: arial;
+         color: green;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.button {
+         font-family: arial;
+         color: blue;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.value {
+         font-family: arial;
+         color: #444444;
+         font-weight: bold
+      }
+   </STYLE>
+
+</HEAD>
+
+<body>
+
+   <H1>MEQU (Market Effects of Quality Uncertainty)</H1>
+   <h2>Segismundo S. Izquierdo &amp; Luis R. Izquierdo</h2>
+   <H1>HOW TO INSTALL THE MODEL</H1>
+
+   <p>To use MEQU, you will have to install <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo 3.0 (free and open source)</a> and download <a href="MEQU.nlogo">the model itself</a>. Unzip the downloaded file and click on MEQU.nlogo</p>
+
+   <!--
+<p>This applet requires Java 1.4.1 or higher.  You may obtain the latest Java plugin from
+<a target="_blank" href="http://java.sun.com/getjava/download.html">Sun's Java site</a>.</p>
+<hr>
+<p align = "center">
+<applet code="org.nlogo.window.Applet"
+        archive="NetLogoLite.jar"
+        width="857" height="582" 
+alt = "Your browser is not able to run this applet!   Check that JAVA is enabled (in Netscape Navigator, go to Edit->Preferences->Advanced->Enable Java; 
+In Internet Explorer go to Tools -> Internet options->Advanced->Java(Sun). If the applet still does not work, check that you are using Java 1.4.1 or higher).">
+  <param name="DefaultModel"
+         value="MEQU.nlogo">
+</applet>
+</p>
+
+
+<p align = right>
+created with <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo</a>
+<br>view/download model file: <a target="_blank" href="MEQU.nlogo">MEQU.nlogo</a>
+</p>
+-->
+
+   <H1>WHAT IS IT?</H1>
+   <p><b>MEQU</b> (<b>M</b>arket <b>E</b>ffects of <b>Q</b>uality <b>U</b>ncertainty) is a model designed to study the effects of quality uncertainty and incomplete information on market dynamics. The main assumption in this model is that buyers form quality expectations about products based on their own past experiences and on the experiences of people they know. </p>
+   <p>This model is based on buyers' expected behaviour, in contrast with classical models of quality uncertainty, which, in addition to quality variability, tend to assume asymmetric information and are based on the phenomenon of adverse selection. <b>MEQU</b> shows that asymmetric information is not necessary for quality variability to damage (or even destroy) a market. It also shows how sharing information, or making aggregate information available, can mitigate the damaging effects of quality variability.</p>
+
+
+   <H1>QUICK GUIDE</H1>
+
+   <ol>
+
+      <li> Set up the model by selecting values for the following <i class="parameter">parameters</i>:
+         <ul>
+            <li><i class="parameter">num-sellers</i>: Number of sellers in the market.</li>
+            <li><i class="parameter">num-buyers</i>: Number of buyers in the market.</li>
+            <li><i class="parameter">individual-weight</i>: Sensitivity of each buyer's quality expectations to her own individual quality experiences.</li>
+            <li><i class="parameter">social-weight</i>: Sensitivity of each buyer's quality expectations to her neighbours' quality experiences.</li>
+            <li><i class="parameter">network-structure</i>: Type of network structure that connects pairs of buyers through directed links. There are four network structures implemented:</li>
+            <i class="value">random</i>, <i class="value">preferential attachment</i>, <i class="value">double ring</i>, and <i class="value">star</i>. If the network structure chosen is <i class="value">random</i>, the value of the parameter <i class="parameter">num-links</i> will determine the number of random links to be created. If the network structure selected is
+            <i class="value">preferential attachment</i>, each buyer will join the network linking to <i class="parameter">pref-attachment-links</i> other buyers. Network structures <i class="value">double ring</i> and <i class="value">star</i> do not require any further parameterisation.
+            <li><i class="parameter">quality-distribution</i>: Statistical distribution for the quality of the items.</li>
+            <li><i class="parameter">quality-variance</i>: Variance for the quality distribution (if applicable).
+            </li>
+         </ul>
+      </li>
+
+      <li> Press the <i class="button">setup</i> button.
+         <br> The social network (buyers and links) will be represented on the screen. If the <i class="parameter">show-network-formation</i> switch is <i class="value">on</i> you will see the dynamics of the network formation.</li>
+
+      <li> Press <i class="button">go-once</i> to see the results after just one trading session, or press <i class="button">go</i> to start a series of trading sessions. Press <i class="button">go</i> again to halt the model.</li>
+
+   </ol>
+
+   <H1>HOW IT WORKS</H1>
+
+   <h2>Social network</h2>
+   <p> Buyers can be connected, forming a social network. Thus, each buyer may link to none, one, or several buyers; this (potentially empty) set of neighbours defines the buyer's social neighbourhood. </p>
+   <p>If the <i class="parameter">network-structure</i> is <i class="value">random</i>, then it is created by establishing a certain number (<i class="parameter">num-links</i>) of directed links between randomly selected pairs of buyers.
+   </p>
+   <p>If the <i class="parameter">network-structure</i> is <i class="value">preferential attachment</i>, buyers are sequentially added to the network; every buyer who joins the network selects <i class="parameter">pref-attachment-links</i> other buyers to link to, who are selected with probability proportional to their number of existing (incoming and outgoing) links. At the beginning of the creation of this network, while the number of buyers is less than <i class="parameter">pref-attachment-links</i>, each new buyer links to all existing buyers. This is Barab&aacute;si and Albert's preferential attachment model of network growth (See <a href="#Newman">Newman 2003</a>, sec. VII-B).</p>
+   <p>If the <i class="parameter">network-structure</i> is <i class="value">double ring</i>, all buyers are randomly placed in a ring (randomly &quot;seated&quot; at a round table) and each buyer links to the one on her right and to the one on her left.</p>
+   <p>If the <i class="parameter">network-structure</i> is <i class="value">star</i>, one buyer is randomly selected and bidirectional links between her and each one of all the other buyers are created.</p>
+
+   <h2>Supply</h2>
+
+   <p> The supply function is constant. There are <i class="parameter">num-sellers</i> sellers indexed in <em>i</em> (<em>i</em> = 1,..., <em>num-sellers</em>) with <em>minimum 
+  selling price</em> for seller <em>i</em> being <i>msp<sub>i</sub></i> = <em>i</em>. A seller <em>i</em> is willing to sell her product if price <i>p</i> &gt;= <i>msp<sub>i</sub></i>. This creates a supply function such that the number of items offered at price
+      <em>p</em> (<em>p</em> >= 0) is the integer part of <em>p</em> (with the additional restriction that the number of items offered must always be less than, or equal to, <em>num-sellers</em>). </p>
+   <h2>Demand</h2>
+   <p>The demand function in every session is formed by summing up buyers' individual reservation prices. The reservation price of buyer <em>i</em> in session <em>n</em> is equal to her initial reservation price multiplied by her current expected quality (<i>q<sup>exp</sup><sub>i,n</sub></i>) for the product.</p>
+   <ul>
+      <li> Initial reservation price: Each of the <i class="parameter">num-buyers</i> buyers is indexed in <em>i</em> (<em>i</em> = 1, 2 ... <em>num-buyers</em>), and buyer <em>i</em> has initial reservation price equal to <em>i</em>. The initial reservation price for each buyer is constant throughout the simulation.</li>
+      <li> Expected quality (<i>q<sup>exp</sup><sub>i,n</sub></i>): The initial expected quality (<i>q<sup>exp</sup><sub>i,</sub></i><sub>0</sub>) for every buyer is equal to 1. The quality expected by each buyer may (and most often does) vary throughout the simulation, depending on the learning rule and the particular buyer's experiences.</li>
+   </ul>
+   <p>At any trading session <em>n</em>, the <em>num-buyers</em> individual reservation prices can be sorted out as follows:</p>
+   <p align="center">
+      <i>R<sub>1,n</sub> &gt;= R<sub>2,n</sub> &gt;= &hellip; &gt;= R<sub>num-buyers,n</sub></i>
+   </p>
+   <p>This order will be useful to determine the price (see below). Finally, note that, given the description above, the initial demand is such that at price <em>p</em> (<em>p</em> &le;
+      <em>num-buyers</em>), the number of products demanded is the integer part of [<em>num-buyers</em> + 1 - <em>p</em>] (with the additional restriction that it always must be less than, or equal to, <em>num-buyers</em>).</p>
+
+   <h2>Market mechanism</h2>
+   <p>Buyers and sellers trade in sessions. In each session, each buyer can buy at most one product, and each seller can sell at most one product. In each session <em>n</em>, the market is centrally cleared at the crossing point of supply and demand. Specifically, the number of traded units <em>y</em> in session <em>n</em> is the maximum value <em>i</em> such that <i>R<sub>i,n</sub> 
+  >= msp<sub>i</sub></i> and the market price <i>p<sub>n</sub></i> is taken to be </p>
+
+   <p align="center"><i>p<sub>n</sub> = ½ [Min (R<sub>y,n</sub>, msp<sub>y+1</sub>) 
+      + Max (R<sub>y+1,n</sub>, msp<sub>y</sub>)]</i></p>
+
+   <p>This price-setting formula takes into account the satisfied supply and demand ( <i>msp<sub>y</sub> &le; p<sub>n</sub> &le; R<sub>y,n</sub></i> ) and the pressure of the extramarginal supply and demand ( <i>msp<sub>y+1</sub> >= p<sub>n</sub> 
+  >= R<sub>y+1,n</sub></i> ).</p>
+
+
+   <h2>Quality expectations</h2>
+
+   <p>In general, buyers form their quality expectations considering both their own experience and their social neighbours' experience. More precisely, after every trading session, every buyer <em>i</em> updates her quality expectation if and only if </p>
+   <ul>
+      <li> she has bought a product and she somewhat considers her own experience (<i class="parameter">individual-weight</i> &gt; 0), or
+         <br>
+         <li> someone in her social neighbourhood has bought a product and she somewhat considers her neighbours' experience (<i class="parameter">social-weight</i> &gt; 0).
+            <br>
+   </ul>
+   <p>In either of those cases, buyer <em>i</em> updates her expectations according to the following rules:</p>
+   <ul>
+      <li>If both buyer <em>i</em> and someone in her neighbourhood has purchased a product:
+         <p align="center"><i>q<sup>exp</sup><sub>i,n+1</sub> = q<sup>exp</sup><sub>i,n</sub> 
+      + individual-weight· (q<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>) + social-weight 
+      · (meanq<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>)</i> </p>
+         where <em>q<sub>i,n</sub></em> is the quality of the product received by buyer <em>i</em>, and
+         <i>meanq<sub>i,n</sub> </i> is the average quality of the products received by buyers in <em>i</em>'s social neighbourhood. </li>
+      <li>If buyer <em>i</em> has purchased a product but no one in her neighbourhood has:
+         <p align="center"><i>q<sup>exp</sup><sub>i,n+1</sub> = q<sup>exp</sup><sub>i,n</sub> 
+      + individual-weight · (q<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>) </i></p>
+      </li>
+      <li>If buyer <em>i</em> has not purchased a product but someone in her neighbourhood has:
+         <p align="center"><i>q<sup>exp</sup><sub>i,n+1</sub> = q<sup>exp</sup><sub>i,n</sub> 
+      + social-weight · (meanq<sub>i,n</sub> - q<sup>exp</sup><sub>i,n</sub>)</i>
+         </p>
+      </li>
+   </ul>
+   <H1>HOW TO USE IT </H1>
+   <h2>Setting the parameters</h2>
+
+   <ul>
+
+      <li> Choose the number of sellers in the market: <i class="parameter">num-sellers</i>.
+         <br> This parameter is used to create the supply function, which remains constant all throughout the simulation. </li>
+
+      <li> Choose the number of buyers in the market: <i class="parameter">num-buyers</i>.
+         <br> This parameter determines buyers' initial reservation prices and, consequently, the initial demand function. </li>
+
+      <li> Select a value for the parameters <i class="parameter">individual-weight</i> and <i class="parameter">social-weight</i>.
+         <br> These two parameters determine how buyers update their quality expectations. The parameter <i class="parameter">individual-weight</i> measures the sensitivity of buyers to their own individual experiences, and the parameter <i class="parameter">social-weight</i> measures the sensitivity of buyers to their neighbours' experiences. The social neighbourhood of buyer A is the set of other buyers to whom A links (see next bullet point). Thus, <i class="parameter">social-weight</i> = 0 implies individual learning only (provided that <i class="parameter">individual-weight</i> &gt; 0).
+      </li>
+
+      <li> Customise buyers' social network by selecting the <i class="parameter">network-structure</i>.
+         <br>
+         <ul>
+            <li>For a <i class="value">random</i> network, select also the number of random links to be formed:
+               <i class="parameter">num-links</i>. The network is formed by creating <i class="parameter">num-links</i> random directed links between buyers.
+               <br>
+               <li>For a <i class="value">preferential attachment</i> network, select also the number of links <i class="parameter">pref-attachment-links</i>. This is the number of outgoing directed links for each new buyer which is added to the network as it is formed.
+                  <br>
+                  <li>More links can be created or deleted at runtime using <i class="parameter">num-links</i>, given any initial network structure. In that case, every possible directed link between two buyers has the same probability of being created or deleted.
+         </ul>
+         <li>Select a statistical distribution for the quality of the items. The quality distribution of every item produced is determined by two parameters:
+            <i class="parameter">quality-distribution</i> and <i class="parameter">quality-variance</i>.
+            <ul>
+
+               <li>Parameter <i class="parameter">quality-distribution</i> can take one of three possible values:
+                  <i class="value">uniform</i>, <i class="value">exponential</i>, or <i class="value">trimmed normal</i>. The mean of all three distributions is 1. The trimmed normal is a normal distribution where every value greater than 2 is set back to 2, and every value less than 0 is set back to 0.
+               </li>
+
+               <li>Parameter <i class="parameter">quality-variance</i> determines the variance of the quality distribution, if applicable. The maximum variance for the uniform distribution is 1/3, which correspond to the maximum range allowed: [0,2]. The variance of the exponential distribution is necessarily 1, since its mean is fixed to 1.</li>
+
+            </ul>
+         </li>
+
+         <li>The <i class="parameter">show-network-formation</i> switch determines whether the dynamics of the network formation are shown (value = <i class="value">on</i>) or not (value = <i class="value">off</i>).</li>
+
+   </ul>
+
+   <h2>Starting up the model</h2>
+   <ol>
+      <li> Click on <i class="button">setup</i>. This creates the buyers, the sellers, the social network (buyers and links), and displays the initial demand and supply. </li>
+      <li> To make the model run once (i.e. one trading session) press <i class="button">go-once</i>. To run the model indefinitely, press <i class="button">go</i>. Press <i class="button">go</i> again to halt the model.</li>
+   </ol>
+   <h2>Interacting with the model at runtime</h2>
+
+   <p>There are a number of ways in which the user can interact with the model. Except for the number of sellers and buyers, the value of every parameter described above can be changed at runtime. Thus, except for potentially those two parameters, the model is always using the values that are shown in the interface. Note that, in particular, the user can create and delete random links in the network as the model runs. This can be conducted by modifying the number of links directly. All links are created or deleted at random. There are also other ways, all of them related to the social network, in which the user can interact with the model at runtime: </p>
+   <ul>
+      <li>Clicking on <i class="button">resize buyers</i> will switch between (a) showing every buyer with the same size and (b) making buyers' sizes proportional to the square root of the number of social neighbours they have.
+         <li>Clicking on <i class="button">drag and drop</i> allows the user to change the position of buyers using the mouse. Please click on the button again when finished.</li>
+         <li><i class="button">relax network</i> changes the position of buyers in the network, trying to find a better-looking spatial configuration. Please click on the button again when satisfied.</li>
+   </ul>
+   <h2>Displays</h2>
+
+   <ul>
+      <li>Main display. The black square in the centre shows, after setting up the model, the sellers aligned at the bottom, and the network of buyers, above the sellers. The slider at the top lets the user control how fast the model runs </li>
+      <li>The market display shows the supply function (blue) and the demand function (red), together with the initial demand (green).</li>
+      <li>The "Accessibility Distribution" graph shows a histogram of the accesibility in a selected number of steps (<i class="parameter">accesibility-steps</i>). The accesibility of a buyer in <i>n</i> steps is the number of social neighbours within her reach going through up to <i>n</i> links. For instance, if buyer A links only to buyer B, who links only to buyer C, who has no social neighbours, then A's accessibility in one step is 1, and in two steps is 2; B's accessibility in any number of steps is 1, and C's accessibility in any number of steps is 0. Please remember to click on
+         <i class="button">Update accessibility</i> to update the graph after changing the value of <i class="parameter">accesibility-steps</i>.</li>
+      <li>The "buyers' surplus" is calculated by summing up, for every buyer who has bought a unit in the session, the difference between her reservation price and the price she paid for the unit she bought. The green dotted line shows the reference value, i.e. the buyers' surplus if there were no quality variability.
+      </li>
+      <li>The "sellers' surplus" is calculated by summing up, for every seller who has sold a unit in the session, the difference between the price at which the unit was traded and the seller's minimum selling price. The green dotted line shows the reference value, i.e. the sellers' surplus if there were no quality variability.</li>
+   </ul>
+   <H1>THINGS TO TRY</H1>
+   <p>Create a market without social network (<i class="parameter">num-links</i> = 0). Use some quality variability and <i class="parameter">individual-weight</i> which are not very low and observe the market failure.</p>
+   <p>Select a <i class="parameter">social-weight</i> greater than 0, increase the number of links in the network and observe the recovered dynamics. The market failure is also visible if there is a social network but the <i class="parameter">social-weight</i> is set to 0.</p>
+
+   <H1>LICENCE</H1>
+   <p>MEQU is a model designed to study the effects of quality uncertainty and incomplete information on market dynamics.
+      <br>Copyright (C) 2005 <a target="_blank" href="http://segis.izqui.org">Segismundo S. Izquierdo</a> &amp; <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a></p>
+
+   <p>This program is free software; you can redistribute it and/or modify it under the terms of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</p>
+   <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> for more details.</p>
+   <p>You can download a copy of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> by clicking <a target="_blank" href="./gpl-3.0.txt">here</a>; you can also get a printed copy writing to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+   <p>Contact information:
+      <br>Luis R. Izquierdo
+      <br> University of Burgos, Spain.
+      <br> e-mail: <a href="mailto:lrizquierdo@ubu.es">lrizquierdo@ubu.es</a>
+   </p>
+
+   <H1>CREDITS</H1>
+   <p><b>MEQU</b> was developed by <a target="_blank" href="http://segis.izqui.org">Segismundo S. Izquierdo</a> &amp; <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a>. The authors would like to gratefully acknowledge financial support from the Scottish Executive Environment and Rural Affairs Department and from the SocSimNet project 2004-LV/04/B/F/PP.</p>
+
+   <H1>REFERENCES</H1>
+   <p>Akerlof GA (1970). <a target="_blank" href="http://mitpress.mit.edu/journals/pdf/lemons_high.pdf">The 
+  Market for Lemons: Quality Uncertainty and the Market Mechanism.</a> <em>The 
+  Quarterly Journal of Economics</em> 84: 488-500</p>
+   <p>Hendel I and Lizzeri A (1999). Adverse selection in Durable Goods Markets. <em>American Economic Review</em> 89 (5): 1097-1115</p>
+   <p>Izquierdo SS, Izquierdo LR (2006). The Impact of Quality Uncertainty without Asymmetric Information. Agent Based Models of Market Dynamics and Consumer Behaviour, Pre-proceedings.
+   </p>
+   <p>Izquierdo SS, Izquierdo LR, Galan JM and Hernandez C (2005). Market Failure caused by Quality Uncertainty. Artificial Economics - <em>Lecture Notes in Economics 
+  and Mathematical Systems</em> 564. Springer-Verlag, Berlin, 2005.</p>
+   <p>Macho-Stadler I and Pérez-Castrillo JD (2001). An Introduction to the Economics of Information. Incentives and Contracts. Oxford University Press (Second edition)</p>
+   <p>Newman
+      <a name="Newman"></a> M.E.J. (2003). <a href="http://aps.arxiv.org/abs/cond-mat/0303516/" target="_blank">The 
+  structure and function of complex networks.</a> SIAM Review 45, 167-256 .</p>
+   <p>Rose C (1993). Equilibrium and Adverse Selection. <em>The RAND Journal of Economics</em>, 24 (4): 559-569</p>
+   <p>Stigler GJ (1961). The Economics of Information. <em>Journal of Political Economy</em> 69: 213-225</p>
+   <p>Stiglitz JE (2000) <a target="_blank" href="http://mitpress.mit.edu/journals/pdf/qjec_115_04_1441_0.pdf">The Contributions of the Economics of Information to Twentieth Century Economics.</a> <em><em>The Quarterly Journal of Economics</em></em>, Vol. 115, Issue 4 - pp. 1441 - 1478</p>
+   <p>Vriend N (2000). An Illustration of the Essential Difference Between Individual and Social Learning, and its Consequence for Computational Analyses. <em>Journal of Economic Dynamics and Control</em> 24: 1-19</p>
+   <p>Wilensky U (1999) <a target="_blank" href="http://ccl.northwestern.edu/netlogo">NetLogo</a>. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</p>
+   <p>Wilson CA (1979). Equilibrium and adverse selection. <em>American Economic Review</em> 69: 313-317</p>
+   <p>Wilson CA (1980). The Nature of Equilibrium in Markets with Adverse Selection. <em>Bell Journal of Economics</em> 11: 108-130</p>
+
+</body>
+
+</html>
