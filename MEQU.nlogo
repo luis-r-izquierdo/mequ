@@ -27,7 +27,7 @@
 ;;   P del cauce s/n, 47011 Valladolid, Spain. e-mail: segis@eis.uva.es 
 ;; Luis R. Izquierdo 
 ;;   University of Burgos, Spain. 
-;;   e-mail: luis@izquierdo.name
+;;   e-mail: lrizquierdo@ubu.es
 
 ;;;;;;;;;;;;
 ;; Breeds ;;
